@@ -1,9 +1,16 @@
 ---
-- name: debian | installing squid
-  apt:
-    name: "{{ squid_package }}"
-    state: present
-  become: true
-  register: result
-  until: result is successful
+- name: install pip3
+  apt: name=python3-pip state=present
 
+- name: install python prereq for ansible htpasswd module
+  ansible.builtin.pip:
+    name: passlib>=1.6
+
+- name: Setup basic Auth
+  community.general.htpasswd:
+    path: /etc/squid/passwords
+    name: "{{ squid_username }}"
+    password: "{{ squid_password }}"
+    owner: root
+    group: www-data
+    mode: 0640

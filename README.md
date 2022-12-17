@@ -4,11 +4,19 @@ Ansible role to install/configure Squid Proxy
 
 
 ## Quick start guide
+
+TODO test again, now with the basic auth settings changed. Last time I ran I did some manual command
+
 0) prereqs
 
 - doctl installed
 - Ansible playbook installed
+- htpassword module (https://docs.ansible.com/ansible/latest/collections/community/general/htpasswd_module.html): 
+    ```
+    ansible-galaxy collection install community.general
+    ```
 
+- There are also others listed in ./roles/ansible-squid/requirements.in 
 1) Spin up droplet
 ```
 ./scripts/do-create-droplet.sh

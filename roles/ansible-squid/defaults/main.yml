@@ -165,3 +165,5 @@ squid_config_files:
   - name: squid.conf
     source: etc/squid/squid.conf.j2
 
+squid_username: ryan
+squid_password: NeedToOverwrite!

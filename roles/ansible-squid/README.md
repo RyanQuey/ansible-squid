@@ -21,14 +21,6 @@ doctl compute droplet list
 If no public ip is shown, you might have to wait a few moments first for the ip to be assigned
 
 3) Run playbook
-```
-./scripts/run-playbook.sh
-```
-
-4) Test Using Curl
-```
-curl -v -x http://your_squid_username:your_squid_password@your_server_ip:3128 http://www.google.com/
-```
 
 ## Build Status
 

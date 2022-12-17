@@ -1,0 +1,9 @@
+---
+- name: debian | installing squid
+  apt:
+    name: "{{ squid_package }}"
+    state: present
+  become: true
+  register: result
+  until: result is successful
+

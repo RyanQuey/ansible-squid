@@ -5,13 +5,14 @@
 # squid_dns_nameservers: 127.0.0.1
 
 # squid auth parameters
-squid_auth_param: []
-# - name: basic
-#   type: program
-#   arg: /usr/lib/squid3/basic_ncsa_auth /etc/squid/htpasswd
-# - name: basic
-#   type: realm
-#   arg: Authentication REQUIRED
+#squid_auth_param: []
+squid_auth_param: 
+- name: basic
+  type: program
+  arg: /usr/lib/squid3/basic_ncsa_auth /etc/squid/htpasswd
+- name: basic
+  type: realm
+  arg: Authentication REQUIRED
 
 # acl aclname acltype argument
 squid_acl:

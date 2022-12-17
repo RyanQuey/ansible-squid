@@ -6,6 +6,7 @@ Ansible role to install/configure Squid Proxy
 ## Quick start guide
 
 TODO test again, now with the basic auth settings changed. Last time I ran I did some manual command
+- I did save the working squid.conf file here though: `./squid.working-example.conf`
 
 0) prereqs
 

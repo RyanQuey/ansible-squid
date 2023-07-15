@@ -8,6 +8,7 @@ Ansible role to install/configure Squid Proxy
 
 - doctl installed
 - Ansible playbook installed
+- set password (follow example in `./roles/main.yml.example`, but use real password)
 
 1) Spin up droplet
 ```

@@ -1,0 +1,3 @@
+---
+# vars file for ansible-squid
+squid_password: my_password_note_please_change

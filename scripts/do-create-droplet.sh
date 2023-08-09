@@ -22,3 +22,4 @@ doctl compute droplet create \
 # 0.5gb RAM ($4/mo) setup:
     #ubuntu-s-1vcpu-512mb-10gb-sfo3-01
 
+doctl compute droplet list

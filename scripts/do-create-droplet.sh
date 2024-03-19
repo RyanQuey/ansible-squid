@@ -9,6 +9,8 @@ export $(cat $SCRIPT_DIR/.env)
 
 # NOTE: Can generate this doctl command from the GUI
 
+# Mar 2024 update: didn't get it working, some sort of auth issue. Might be because of old CLI client. So just used the DO dashboard and it worked great. 
+
 # 1gb RAM ($6/mo) setup:
 doctl compute droplet create \
     --image ubuntu-20-04-x64 \

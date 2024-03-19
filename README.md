@@ -25,6 +25,8 @@ TODO test again, now with the basic auth settings changed. Last time I ran I did
 ./scripts/do-create-droplet.sh
 ```
 
+Mar 2024 update: didn't get it working, some sort of auth issue. Might be because of old CLI client. So just used the DO dashboard and it worked great. 
+
 ### 2) Get public ip of droplet
 ```
 doctl compute droplet list
@@ -39,13 +41,20 @@ If no public ip is shown, you might have to wait a few moments first for the ip 
 ### 4.1) Check resulting squid server using SSH
 Just to make sure files etc are in right place....
 
+Can use script to ssh in as well: 
+
+```
+$DO_HOST=123.456.789.012
+./scripts/ssh-into-droplet.sh $DO_HOST
+```
+
 - There should be a squid conf file at: `/etc/squid/squid.conf`
 
 ### 4.2) Test Using Curl
 - Uses credentials from `squid_username` and `squid_password` ansible variables (NOT the password used in /etc/squid/passwords, which is just a hash or something)
 - Also uses the public ip you used in the `hosts.ini` file.
 ```
-curl -v -x http://your_squid_username:your_squid_password@your_server_ip:3128 http://www.google.com/
+curl -v -x http://${your_squid_username:-ryan}:your_squid_password@your_server_ip:3128 http://www.google.com/
 ```
 
 ##### Possible results
@@ -67,15 +76,32 @@ acl other_allowed_hosts src 0.0.0.0/0
 http_access allow other_allowed_hosts
 ```
 (https://serverfault.com/a/1008074/458928)
+
+- Note that this needs to be put in *before* the `http_access deny all` line. 
+- Again, make sure to restart your server before continuing after making changes to this file:
+
+
+```
+systemctl restart squid
+```
+(run this from within the server, using ssh)
+
+
+### 5) Set your computer to use the proxy
+Welll...assuming that's what the proxy is for. 
+
+But if for Windows 10 for example, just open Chrome and then open computer proxy settings through that, or open directly from windows settings. Then put in the squid username and password set in the `squid_username` and `squid_password` ansible variables.
+
+
+Actually it looks like you just put in the public ip of the droplet into that config, and then when you open chrome for the first time, then it will prompt you for creds. 
+
+If you put these same creds before in this same computer, it might remember then, even months afterwards. 
+
+You can also test to see if it's working by visiting e.g., 
+
+https://whatismyipaddress.com/
+
 ## Build Status
-
-### GitHub Actions
-
-![Molecule Test](https://github.com/mrlesmithjr/ansible-squid/workflows/Molecule%20Test/badge.svg)
-
-### Travis CI
-
-[![Build Status](https://travis-ci.org/mrlesmithjr/ansible-squid.svg?branch=master)](https://travis-ci.org/mrlesmithjr/ansible-squid)
 
 ## Requirements
 
@@ -105,3 +131,15 @@ Larry Smith Jr.
 - [http://everythingshouldbevirtual.com](http://everythingshouldbevirtual.com)
 
 > NOTE: Repo has been created/updated using [https://github.com/mrlesmithjr/cookiecutter-ansible-role](https://github.com/mrlesmithjr/cookiecutter-ansible-role) as a template.
+
+
+# Common Errors
+## 1 - WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!
+
+For example: 
+```
+fatal: [146.190.52.6]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\n@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @\r\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\nIT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!\r\nSomeone could be eavesdropping on you right now (man-in-the-middle attack)!\r\nIt is also possible that a host key has just been changed.\r\nThe fingerprint for the ED25519 key sent by the remote host is\nSHA256:76Aqh29g+E5ume6RiTFKGl+tR7sFreopumsffyQU12E.\r\nPlease contact your system administrator.\r\nAdd correct host key in /home/ryan/.ssh/known_hosts to get rid of this message.\r\nOffending ECDSA key in /home/ryan/.ssh/known_hosts:205\r\n  remove with:\r\n  ssh-keygen -f \"/home/ryan/.ssh/known_hosts\" -R \"146.190.52.6\"\r\nHost key for 146.190.52.6 has changed and you have requested strict checking.\r\nHost key verification failed.", "unreachable": true}
+```
+
+Solution: Did you remember to update your `hosts.ini` file with the new ip from the new DO droplet? 
+

@@ -21,9 +21,9 @@ compute droplet create \
     --enable-monitoring \
     --tag-names 'squid-proxy' \
     --ssh-keys $DO_FINGERPRINT \
-    ubuntu-s-1vcpu-1gb-sfo3-01
+    ubuntu-s-1vcpu-1gb-sfo3-01 && \
 
 # 0.5gb RAM ($4/mo) setup:
     #ubuntu-s-1vcpu-512mb-10gb-sfo3-01
 
-$doctl compute droplet list
+$SCRIPT_DIR/DOCKER-do-list-droplets.friendly.sh

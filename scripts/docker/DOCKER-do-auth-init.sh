@@ -12,6 +12,8 @@ doctl=$SCRIPT_DIR/_DOCKER-doctl.sh
 # NOTE: Can generate this doctl command from the GUI
 
 # Mar 2024 update: didn't get it working, some sort of auth issue. Might be because of old CLI client. So just used the DO dashboard and it worked great. 
+#
+# NOTE I think it's not necessary for docker...since it only updates stuff in the container anyways
 
 $doctl auth init
 

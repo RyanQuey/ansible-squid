@@ -18,7 +18,6 @@ TODO test again, now with the basic auth settings changed. Last time I ran I did
     ```
 
 - There are also others listed in ./roles/ansible-squid/requirements.in 
-- Make sure to set squid password in: `roles/ansible-squid/vars/main.yml` (make a copy from `roles/ansible-squid/vars/main.yml.example`)
 
 #### 0.1) If doing Docker:...
 - Intro
@@ -29,11 +28,14 @@ All the above should be accomplished by running:
 ```
 docker build . -f Dockerfile.ansible -t ansible
 # Latest doctl as of July 2025. Alternatively, can do e.g., digitalocean/doctl:1-latest if I want something newer and don't want to be so specific
+DO_TAG=
 docker pull digitalocean/doctl:1.132.0
 docker image tag digitalocean/doctl:1.132.0 doctl
 ```
 - TODO put this in a script in `./scripts/docker`
 
+#### 0.2) Set squid password
+- Make sure to set squid password in: `roles/ansible-squid/vars/main.yml` (make a copy from `roles/ansible-squid/vars/main.yml.example`)
 
 
 ### 1) Spin up droplet
@@ -43,11 +45,24 @@ docker image tag digitalocean/doctl:1.132.0 doctl
 
 Mar 2024 update: didn't get it working, some sort of auth issue. Might be because of old CLI client. So just used the DO dashboard and it worked great. 
 
-### 2) Get public ip of droplet
+### 2) Set hosts in `hosts.ini`
+#### 2.1) Get public ip of droplet
 ```
 doctl compute droplet list
 ```
-If no public ip is shown, you might have to wait a few moments first for the ip to be assigned
+
+Or in Docker:
+```
+./scripts/docker/DOCKER-do-list-droplets.JSON.sh
+```
+
+If no public ip is shown, you might have to wait a few moments first for the ip to be assigned.
+
+#### 2.2) Set in file
+```
+cp hosts.ini.example hosts.ini
+vim hosts.ini
+```
 
 ### 3) Run playbook
 ```

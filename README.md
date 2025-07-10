@@ -28,9 +28,9 @@ All the above should be accomplished by running:
 ```
 docker build . -f Dockerfile.ansible -t ansible
 # Latest doctl as of July 2025. Alternatively, can do e.g., digitalocean/doctl:1-latest if I want something newer and don't want to be so specific
-DO_TAG=
-docker pull digitalocean/doctl:1.132.0
-docker image tag digitalocean/doctl:1.132.0 doctl
+DO_TAG=1.132.0
+docker pull digitalocean/doctl:$DO_TAG
+docker image tag digitalocean/doctl:$DO_TAG doctl
 ```
 - TODO put this in a script in `./scripts/docker`
 

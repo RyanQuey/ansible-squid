@@ -27,6 +27,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && rm -Rf /usr/share/doc && rm -Rf /usr/share/man
 
+
 ARG USERNAME=ansible
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
@@ -35,6 +36,8 @@ RUN groupadd --gid $USER_GID $USERNAME
 RUN useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME
 RUN echo $USERNAME ALL=\(root\) NOPASSWD:ALL >/etc/sudoers.d/$USERNAME
 RUN chmod 0440 /etc/sudoers.d/$USERNAME
+
+WORKDIR /home/ansible
 
 RUN pip3 install --no-cache-dir \
     ansible \
@@ -99,3 +102,7 @@ ENV DEBIAN_FRONTEND=dialog
 # RUN goss validate
 
 RUN ansible-galaxy collection install community.general
+
+# image default:
+# CMD python
+# leaving unset will just go to that, which is fine - it can be overridden when container is ran

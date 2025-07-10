@@ -25,14 +25,10 @@ TODO test again, now with the basic auth settings changed. Last time I ran I did
     * Note that alternative would be ansible-builder, see this: https://www.redhat.com/en/blog/introduction-to-ansible-builder?intcmp=7015Y000003t7aWQAQ (accessed July 2025)
 
 All the above should be accomplished by running:
+
 ```
-docker build . -f Dockerfile.ansible -t ansible
-# Latest doctl as of July 2025. Alternatively, can do e.g., digitalocean/doctl:1-latest if I want something newer and don't want to be so specific
-DO_TAG=1.132.0
-docker pull digitalocean/doctl:$DO_TAG
-docker image tag digitalocean/doctl:$DO_TAG doctl
+./scripts/docker/setup/create-images.sh
 ```
-- TODO put this in a script in `./scripts/docker`
 
 #### 0.2) Set squid password
 - Make sure to set squid password in: `roles/ansible-squid/vars/main.yml` (make a copy from `roles/ansible-squid/vars/main.yml.example`)
@@ -68,6 +64,19 @@ vim hosts.ini
 ```
 ./scripts/run-playbook.sh
 ```
+or in docker:
+```
+./scripts/docker/DOCKER-run-playbook.sh
+```
+
+#### DEBUGGING RUNNING PLAYBOOK
+- Try SSH inside of Docker
+    ```
+    ./scripts/docker/DOCKER-ssh-into-droplet.sh
+    ```
+
+
+
 
 ### 4.1) Check resulting squid server using SSH
 Just to make sure files etc are in right place....
@@ -174,3 +183,4 @@ fatal: [146.190.52.6]: UNREACHABLE! => {"changed": false, "msg": "Failed to conn
 
 Solution: Did you remember to update your `hosts.ini` file with the new ip from the new DO droplet? 
 
+- upgrade ansible (2.9 is from 2019/early 2020...)

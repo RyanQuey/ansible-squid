@@ -20,6 +20,9 @@ copy_key && \
 docker run --rm --interactive --tty \
   --env=DIGITALOCEAN_ACCESS_TOKEN=$DO_API_KEY \
   -v $SCRIPT_DIR/tmp/id_rsa:/root/.ssh/id_rsa \
-  doctl "$@" && \
+  doctl "$@" 
+
+
+# no matter what, remove the key.
 remove_tmp_key
 

@@ -9,8 +9,9 @@ export $(cat $SCRIPT_DIR/.env)
 
 cd $PROJECT_DIR && \
 
+  # Path to playbook.yml (and all paths) are relative to the docker WORKDIR, which should be fine
 $DOCKER_SCRIPT_DIR/_DOCKER-ansible-playbook.sh \
- $PROJECT_DIR/playbook.yml \
+ ./playbook.yml \
 -i ./hosts.ini \
---private-key $SSH_PRIVATE_KEY_PATH \
+--private-key  ./scripts/docker/tmp/id_rsa \
 -e "ansible_ssh_user=root"

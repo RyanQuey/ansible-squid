@@ -17,12 +17,32 @@ set_host_ini () {
   echo -e $hosts_content > $PROJECT_DIR/hosts.ini
 }
 
-droplet_public_ip=$($DOCKER_SCRIPT_DIR/DOCKER-do-QUERY-get-droplet-public_ip.sh)
-if [[ $droplet_public_ip =~ [0-9.] ]]; then
-  echo "Found public ip: $droplet_public_ip"
-  echo "setting to '$PROJECT_DIR/hosts.ini':"
-  set_host_ini
-else
-  echo "no public ip yet. It just says:"
-  echo "$droplet_public_ip"
-fi
+get_ip () {
+  droplet_public_ip=$($DOCKER_SCRIPT_DIR/DOCKER-do-QUERY-get-droplet-public_ip.sh)
+}
+
+TRIES=5
+
+for i in {0..$TRIES}; do
+
+  get_ip
+
+  if [[ $droplet_public_ip =~ [0-9.] ]]; then
+    echo "Found public ip: $droplet_public_ip"
+    echo "setting to '$PROJECT_DIR/hosts.ini':"
+    set_host_ini
+    echo "done."
+    break;
+
+  else
+    echo "no public ip yet. It just says:" && \
+    $DOCKER_SCRIPT_DIR/DOCKER-do-list-droplets.friendly.sh && \
+
+    if [[ i -lt $TRIES ]]; then
+      echo "droplet not ready yet, try again"
+    else
+      echo "droplet not ready yet."
+      echo "Please try again later."
+    fi
+  fi
+done

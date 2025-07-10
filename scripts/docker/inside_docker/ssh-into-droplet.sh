@@ -4,6 +4,14 @@
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 PROJECT_DIR=$SCRIPT_DIR/../..
 
+# NOTE only for running from within docker container
+#
+#
+# > ./scripts/docker/_DOCKER-ansible.sh bash
+#
+#  (now within docker
+# > ./scripts/docker/inside_docker/ssh-into-droplet.sh 
+#
 # loads env vars
 export $(cat $SCRIPT_DIR/../.env)
 doctl=$SCRIPT_DIR/_DOCKER-doctl.sh
@@ -33,4 +41,4 @@ HOST_IP=$(sed '2q;d' $PROJECT_DIR/hosts.ini)
 # See my docker version of this for example
 
 # relative paths are to WORK_DIR in docker
-$SCRIPT_DIR/_DOCKER-ansible.sh ./scripts/docker/inside_docker/ssh-into-droplet.sh
+ssh root@$HOST_IP -i ./scripts/docker/tmp/id_rsa 

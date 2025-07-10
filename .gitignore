@@ -2,3 +2,7 @@ venv/
 .env
 hosts.ini
 /roles/ansible-squid/vars/main.yml
+*rsa*
+.ansible
+.bash_history
+.python_history

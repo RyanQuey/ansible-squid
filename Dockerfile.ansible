@@ -14,8 +14,8 @@ RUN apt-get update \
     bash \
     git \
     curl \
-    rsync \
-    zsh \
+#    rsync \
+#    zsh \
     nano \
     sudo \
     less \
@@ -39,22 +39,22 @@ RUN chmod 0440 /etc/sudoers.d/$USERNAME
 
 WORKDIR /home/ansible
 
+COPY ./roles/ansible-squid/requirements.txt /home/ansible/
+
+# keep consistent with non-Docker version, by using requirements.txt file
+RUN pip3 install --no-cache-dir -r /home/ansible/requirements.txt
+
+# TODO from here down, this is what I (RQ) inherited from dockerfile I copied from elsewhere. Might not need any of these.
 RUN pip3 install --no-cache-dir \
-    ansible \
-    # ansible-cmdb \
-    # ansible-runner \
-    # ansible-builder \
-    # ansible-test \
     ara \
     hvac \
     # molecule \
     dnspython \
     jmespath \
     "hvac[parser]" \
-    certifi \
-    ansible-lint \
-    ansible-modules-hashivault
-    # ansible-autodoc
+    certifi 
+    #ansible-lint \
+    #ansible-modules-hashivault
 
 # COPY --from=hashicorp/consul-template /consul-template /usr/local/bin/consul-template
 # COPY --from=hashicorp/envconsul /bin/envconsul /usr/local/bin/envconsul
@@ -101,7 +101,8 @@ ENV DEBIAN_FRONTEND=dialog
 
 # RUN goss validate
 
-RUN ansible-galaxy collection install community.general
+# TODO figure out why this fails
+# RUN ansible-galaxy collection install community.general
 
 # image default:
 # CMD python

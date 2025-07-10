@@ -177,8 +177,6 @@ Larry Smith Jr.
 
 > NOTE: Repo has been created/updated using [https://github.com/mrlesmithjr/cookiecutter-ansible-role](https://github.com/mrlesmithjr/cookiecutter-ansible-role) as a template.
 
-- upgrade ansible (2.9 is from 2019/early 2020...)
-
 # Common Errors
 ## 1 - WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!
 

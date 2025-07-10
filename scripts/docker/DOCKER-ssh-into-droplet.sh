@@ -33,4 +33,4 @@ HOST_IP=$(sed '2q;d' $PROJECT_DIR/hosts.ini)
 # See my docker version of this for example
 
 # relative paths are to WORK_DIR in docker
-$SCRIPT_DIR/_DOCKER-ansible.sh ./scripts/docker/inside_docker/ssh-into-droplet.sh
+$SCRIPT_DIR/_DOCKER-ansible.sh bash ./scripts/docker/inside_docker/ssh-into-droplet.sh

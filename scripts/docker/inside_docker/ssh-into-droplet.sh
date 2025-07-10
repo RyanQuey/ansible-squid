@@ -2,7 +2,7 @@
 #  #!/bin/bash -x
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-PROJECT_DIR=$SCRIPT_DIR/../..
+PROJECT_DIR=$SCRIPT_DIR/../../..
 
 # NOTE only for running from within docker container
 #

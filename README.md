@@ -91,7 +91,9 @@ $DO_HOST=123.456.789.012
 - There should be a squid conf file at: `/etc/squid/squid.conf`
 
 ### 4.2) Test Using Curl
-- Uses credentials from `squid_username` and `squid_password` ansible variables (NOT the password used in /etc/squid/passwords, which is just a hash or something)
+- Uses credentials from `squid_username` and `squid_password` ansible variables (NOT the password used in /etc/squid/passwords, which is just a hash or something). 
+    * By default, set to whatever you have in `/roles/ansible-squid/defaults/main.yml` for username, and `roles/ansible-squid/vars/main.yml` for password. 
+    * But there is a number of ways they can be overwritten in ansible.
 - Also uses the public ip you used in the `hosts.ini` file.
 ```
 curl -v -x http://${your_squid_username:-ryan}:your_squid_password@your_server_ip:3128 http://www.google.com/
@@ -141,6 +143,10 @@ You can also test to see if it's working by visiting e.g.,
 
 https://whatismyipaddress.com/
 
+#### Setting up proxy in MacOs:
+
+- https://oxylabs.io/resources/integrations/mac
+
 ## Build Status
 
 ## Requirements
@@ -172,6 +178,7 @@ Larry Smith Jr.
 
 > NOTE: Repo has been created/updated using [https://github.com/mrlesmithjr/cookiecutter-ansible-role](https://github.com/mrlesmithjr/cookiecutter-ansible-role) as a template.
 
+- upgrade ansible (2.9 is from 2019/early 2020...)
 
 # Common Errors
 ## 1 - WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!
@@ -183,4 +190,3 @@ fatal: [146.190.52.6]: UNREACHABLE! => {"changed": false, "msg": "Failed to conn
 
 Solution: Did you remember to update your `hosts.ini` file with the new ip from the new DO droplet? 
 
-- upgrade ansible (2.9 is from 2019/early 2020...)

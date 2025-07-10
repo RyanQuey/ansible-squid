@@ -20,6 +20,22 @@ TODO test again, now with the basic auth settings changed. Last time I ran I did
 - There are also others listed in ./roles/ansible-squid/requirements.in 
 - Make sure to set squid password in: `roles/ansible-squid/vars/main.yml` (make a copy from `roles/ansible-squid/vars/main.yml.example`)
 
+#### 0.1) If doing Docker:...
+- Intro
+    * Some discussion on pros and cons: https://www.reddit.com/r/ansible/comments/sn3axd/running_ansible_server_in_docker_container/ (accessed July 2025)
+    * Note that alternative would be ansible-builder, see this: https://www.redhat.com/en/blog/introduction-to-ansible-builder?intcmp=7015Y000003t7aWQAQ (accessed July 2025)
+
+All the above should be accomplished by running:
+```
+docker build . -f Dockerfile.ansible -t ansible
+# Latest doctl as of July 2025. Alternatively, can do e.g., digitalocean/doctl:1-latest if I want something newer and don't want to be so specific
+docker pull digitalocean/doctl:1.132.0
+docker image tag digitalocean/doctl:1.132.0 doctl
+```
+- TODO put this in a script in `./scripts/docker`
+
+
+
 ### 1) Spin up droplet
 ```
 ./scripts/do-create-droplet.sh

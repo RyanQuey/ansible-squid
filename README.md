@@ -145,14 +145,13 @@ https://whatismyipaddress.com/
 
 #### Setting up proxy in MacOs:
 
-- https://oxylabs.io/resources/integrations/mac
+- Just google it, their settings change location from time to time. 
+    * But general idea is, turn on `Secure web proxy (HTTPS)`, for `Server` put the public IP (e.g., `143.110.158.56`, whatever your droplet's ip is) and port is 3128.
+    * You have to turn on `Proxy server requires password` (since it does` and put in creds, as described above already. 
 
-## Build Status
+## Status
 
-## Requirements
-
-For any required Ansible roles, review:
-[requirements.yml](requirements.yml)
+- Working as of July 2025
 
 ## Role Variables
 

@@ -54,7 +54,6 @@ RUN pip3 install --no-cache-dir \
     "hvac[parser]" \
     certifi 
     #ansible-lint \
-    #ansible-modules-hashivault
 
 # COPY --from=hashicorp/consul-template /consul-template /usr/local/bin/consul-template
 # COPY --from=hashicorp/envconsul /bin/envconsul /usr/local/bin/envconsul

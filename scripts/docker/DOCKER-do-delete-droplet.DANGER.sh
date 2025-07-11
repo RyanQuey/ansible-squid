@@ -1,7 +1,6 @@
 #!/bin/bash -x
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-export $(cat $SCRIPT_DIR/.env)
 
 
 $SCRIPT_DIR/_DOCKER-doctl.sh compute droplet delete \

@@ -111,6 +111,8 @@ $DO_HOST=123.456.789.012
 ```
 curl -v -x http://${your_squid_username:-ryan}:your_squid_password@your_server_ip:3128 http://www.google.com/
 ```
+# TODOs
+- [ ] make basic auth actually work. Right now, all passwords just go through.
 
 ##### Possible results
 - Failed to connect
@@ -190,6 +192,9 @@ Larry Smith Jr.
 - [http://everythingshouldbevirtual.com](http://everythingshouldbevirtual.com)
 
 > NOTE: Repo has been created/updated using [https://github.com/mrlesmithjr/cookiecutter-ansible-role](https://github.com/mrlesmithjr/cookiecutter-ansible-role) as a template.
+
+# TODOs
+- [ ] make basic auth actually work. Right now, all passwords just go through.
 
 # Debugging Techniques
 ## 1) Test out the basic auth

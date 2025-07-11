@@ -38,7 +38,7 @@ for i in {0..$TRIES}; do
     echo "no public ip yet. It just says:" && \
     $DOCKER_SCRIPT_DIR/DOCKER-do-list-droplets.friendly.sh && \
 
-    if [[ i -lt $TRIES ]]; then
+    if [[ $i -lt $TRIES ]]; then
       echo "droplet not ready yet, try again"
     else
       echo "droplet not ready yet."

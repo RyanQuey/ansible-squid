@@ -96,6 +96,10 @@ squid_http_access:
   - action: allow
     acl:
       - localnet
+      # NOTE DANGER! less secure
+  - action: allow
+    acl:
+      - localnet
   - action: deny
     acl:
       - all
@@ -167,3 +171,5 @@ squid_config_files:
 
 squid_username: ryan
 squid_password: NeedToOverwrite!
+# though I do put true in the example to overwrite this in the docs...
+squid_allow_all_hosts: false

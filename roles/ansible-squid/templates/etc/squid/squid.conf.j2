@@ -30,6 +30,12 @@ auth_param {{ item['name'] }} {{ item['type'] }} {{ item['arg']}}
 {%   endfor %}
 {% endif %}
 
+# I tried different permutations of this, but it didn't work. Not sure, will revisit one day when I care more.
+# - was trying this guide, it didn't work https://gist.github.com/jackblk/fdac4c744ddf2a0533278a38888f3caf#file-squid_proxy_tutorial-md
+# acl authenticated proxy_auth REQUIRED
+# http_access allow authenticated
+# http_access allow authenticated other_allowed_hosts
+
 {% if squid_acl is defined and squid_acl != [] %}
 # ACLS
 {%   for item in squid_acl %}
@@ -42,6 +48,12 @@ acl {{ item['name'] }} {{ item['type'] }} {{ item['arg'] }}
 {%   for item in squid_acl_localnet %}
 acl localnet src {{ item }}
 {%   endfor %}
+{% endif %}
+
+# NOTE DANGEROUS!! But allows traffic from all ips, so convenient (especially if you don't have a stable IP)
+{% if squid_allow_all_hosts %}
+acl other_allowed_hosts src 0.0.0.0/0
+http_access allow other_allowed_hosts
 {% endif %}
 
 {% if squid_acl_safeports is defined and squid_acl_safeports != [] %}

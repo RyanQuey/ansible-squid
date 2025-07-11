@@ -61,6 +61,19 @@ vim hosts.ini
 ```
 
 ### 3) Run playbook
+
+#### 3.1) Set vars
+Edit vars, to set password and decide if you want to open up to all hosts. (which you do, or you ahve to whitelist your ip, and make sure it's a stable ip, etc)
+```
+vim ./roles/ansible-squid/vars/main.yml
+```
+
+NOTE make sure to set this if you do want to allow all hosts, not just a whitelisted ip.
+```
+squid_allow_all_hosts: true
+```
+
+#### 3.2) Run it
 ```
 ./scripts/run-playbook.sh
 ```
@@ -151,7 +164,8 @@ https://whatismyipaddress.com/
 
 ## Status
 
-- Working as of July 2025
+- Working as of July 2025 
+    * UPDATE July 10th, it worked, but basic auth would always allow them through, regardless of right or wrong password (or none at all)
 
 ## Role Variables
 
@@ -177,6 +191,18 @@ Larry Smith Jr.
 
 > NOTE: Repo has been created/updated using [https://github.com/mrlesmithjr/cookiecutter-ansible-role](https://github.com/mrlesmithjr/cookiecutter-ansible-role) as a template.
 
+# Debugging Techniques
+## 1) Test out the basic auth
+- I was trying out this method: 
+    https://gist.github.com/jackblk/fdac4c744ddf2a0533278a38888f3caf#file-squid_proxy_tutorial-md
+- If want to make sure password should work therefore, follow his advice: 
+    [Optional] Test the password store
+        ```
+        /usr/lib/squid3/basic_ncsa_auth /etc/squid/passwords
+        ```
+    After executing this line the console will look like its hung, there is a prompt without any text in it. Enter USERNAME PASSWORD (replacing these with your specific username and password) and hit return. You should receive the response "OK".
+
+
 # Common Errors
 ## 1 - WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!
 
@@ -187,3 +213,5 @@ fatal: [146.190.52.6]: UNREACHABLE! => {"changed": false, "msg": "Failed to conn
 
 Solution: Did you remember to update your `hosts.ini` file with the new ip from the new DO droplet? 
 
+## 2 Sorry, you are not currently allowed to request http://www.google.com/ from this cache until you have authenticated yourself
+- This means auth is not working. But the proxy is up at least!

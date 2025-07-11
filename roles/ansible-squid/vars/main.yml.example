@@ -1,3 +1,6 @@
 ---
 # vars file for ansible-squid
 squid_password: my_password_note_please_change
+# NOTE DANGEROUS!! But allows traffic from all ips, so convenient (especially if you don't have a stable IP)
+#squid_allow_all_hosts: true
+squid_allow_all_hosts: false

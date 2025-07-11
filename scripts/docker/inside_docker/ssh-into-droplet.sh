@@ -14,7 +14,7 @@ PROJECT_DIR=$SCRIPT_DIR/../../..
 #
 # loads env vars
 export $(cat $SCRIPT_DIR/../.env)
-doctl=$SCRIPT_DIR/_DOCKER-doctl.sh
+#doctl=$SCRIPT_DIR/_DOCKER-doctl.sh
 
 # e.g.  147.182.225.164
 #  Just whatever public ip DO puts out there for you. 
@@ -41,4 +41,4 @@ HOST_IP=$(sed '2q;d' $PROJECT_DIR/hosts.ini)
 # See my docker version of this for example
 
 # relative paths are to WORK_DIR in docker
-ssh root@$HOST_IP -i ./scripts/docker/tmp/id_rsa 
+ssh root@$HOST_IP -i $SCRIPT_DIR/../tmp/id_rsa 
